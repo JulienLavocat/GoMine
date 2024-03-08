@@ -25,7 +25,8 @@ func TestReader_Bool(t *testing.T) {
 			reader := packets.NewReader(tc.input)
 
 			for index, expect := range tc.expect {
-				result, err := reader.Bool()
+				var result bool
+				err := reader.Read(&result)
 				if err != nil {
 					t.Error(err)
 					continue
@@ -36,13 +37,6 @@ func TestReader_Bool(t *testing.T) {
 			}
 		})
 	}
-
-	t.Run("ensure enough capacity", func(t *testing.T) {
-		_, err := packets.NewReader(make([]byte, 0)).Bool()
-		if err == nil {
-			t.Error("No error returned")
-		}
-	})
 }
 
 func TestReader_UInt8(t *testing.T) {
@@ -60,7 +54,8 @@ func TestReader_UInt8(t *testing.T) {
 			reader := packets.NewReader(tc.value)
 
 			for _, value := range tc.value {
-				result, err := reader.UInt8()
+				var result uint8
+				err := reader.Read(&result)
 				if err != nil {
 					t.Error(err)
 					continue
@@ -72,13 +67,6 @@ func TestReader_UInt8(t *testing.T) {
 			}
 		})
 	}
-
-	t.Run("ensure enough capacity", func(t *testing.T) {
-		_, err := packets.NewReader(make([]byte, 0)).UInt8()
-		if err == nil {
-			t.Error("No error returned")
-		}
-	})
 }
 
 func TestReader_Int8(t *testing.T) {
@@ -98,7 +86,8 @@ func TestReader_Int8(t *testing.T) {
 			reader := packets.NewReader(tc.value)
 
 			for _, value := range tc.expect {
-				result, err := reader.Int8()
+				var result int8
+				err := reader.Read(&result)
 				if err != nil {
 					t.Error(err)
 					continue
@@ -110,13 +99,6 @@ func TestReader_Int8(t *testing.T) {
 			}
 		})
 	}
-
-	t.Run("ensure enough capacity", func(t *testing.T) {
-		_, err := packets.NewReader(make([]byte, 0)).UInt8()
-		if err == nil {
-			t.Error("No error returned")
-		}
-	})
 }
 
 func TestReader_Int16(t *testing.T) {
@@ -136,7 +118,8 @@ func TestReader_Int16(t *testing.T) {
 			reader := packets.NewReader(tc.value)
 
 			for _, value := range tc.expect {
-				result, err := reader.Int16()
+				var result int16
+				err := reader.Read(&result)
 				if err != nil {
 					t.Error(err)
 					continue
@@ -148,11 +131,4 @@ func TestReader_Int16(t *testing.T) {
 			}
 		})
 	}
-
-	t.Run("ensure enough capacity", func(t *testing.T) {
-		_, err := packets.NewReader(make([]byte, 0)).UInt8()
-		if err == nil {
-			t.Error("No error returned")
-		}
-	})
 }
